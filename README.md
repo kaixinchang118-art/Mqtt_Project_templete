@@ -220,7 +220,6 @@ OLED_ShowString(54, 3, buf, 16);  // Humidity value
 ## License
 
 This project uses code from various sources:
-- OLED driver adapted from 中景园电子 (Zhongjingyuan Electronics)
 - STM32 HAL library from STMicroelectronics
 - MQTT and OneNet integration libraries
 
@@ -228,7 +227,7 @@ Please refer to individual source files for specific license information.
 
 ## Author
 
-- Original OLED driver: Evk123 (中景园电子)
+- Original OLED driver: Evk123 
 - Project integration: [Your Name]
 
 ## Version History
