@@ -228,7 +228,7 @@ Please refer to individual source files for specific license information.
 ## Author
 
 - Original OLED driver: Evk123 
-- Project integration: [Your Name]
+- Project integration: Kaixin Chang
 
 ## Version History
 
