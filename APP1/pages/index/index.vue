@@ -49,9 +49,9 @@
 		},
 		onLoad() {
 			const params = {
-				author_key: '36e36c70b1174c979667472879cfc366',
+				author_key: 'key',
 				version: '2022-05-01',
-				user_id: '475138',
+				user_id: 'ID',
 			}
 			this.token = createCommonToken(params);
 		},
