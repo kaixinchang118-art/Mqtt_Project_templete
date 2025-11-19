@@ -1,9 +1,10 @@
 <template>
 	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{token}}</text>
-		</view>
+		<view class="">温度 {{temp}} ℃</view>
+		<view class="">湿度 {{humi}} %</view>
+		<switch :checked="led" @change="" />
+			
+		
 	</view>
 </template>
 
@@ -14,7 +15,9 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello',
+				temp: '',
+				humi: '',
+				led: true,
 				token: '',
 			}
 		},
@@ -24,12 +27,36 @@
 				version: '2022-05-01',
 				user_id: '',
 			}
-
 			this.token = createCommonToken(params);
-			console.log(this.token)
-
+		},
+		onShow() {
+			this.fetchDevData();
+			setInterval(()=>{
+				this.fetchDevData();
+			},3000)
 		},
 		methods: {
+			fetchDevData(){
+				uni.request({
+				    url: 'https://iot-api.heclouds.com/thingmodel/query-device-property', //仅为示例，并非真实接口地址。
+					method: 'GET',
+				    data: {
+						product_id: 'DQAy602I7Q',
+						device_name: 'd1'
+				    },
+				    header: {
+				        'authorization': this.token //自定义请求头信息
+				    },
+				    success: (res) => {
+				        console.log(res.data);
+						this.temp = res.data.data[2].value;
+						this.humi = res.data.data[0].value;
+						this.led = res.data.data[1].value === 'true';
+						
+				    }
+				});
+
+			}
 
 		}
 	}
