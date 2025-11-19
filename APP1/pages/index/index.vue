@@ -2,7 +2,7 @@
 	<view class="content">
 		<view class="">温度 {{temp}} ℃</view>
 		<view class="">湿度 {{humi}} %</view>
-		<switch :checked="led" @change="" />
+		<switch :checked="led" @change="onLedSwitch" />
 			
 		
 	</view>
@@ -31,9 +31,9 @@
 		},
 		onShow() {
 			this.fetchDevData();
-			setInterval(()=>{
-				this.fetchDevData();
-			},3000)
+			// setInterval(()=>{
+			// 	this.fetchDevData();
+			// },3000)
 		},
 		methods: {
 			fetchDevData(){
@@ -55,7 +55,25 @@
 						
 				    }
 				});
-
+			},
+			onLedSwitch(event){
+				console.log(event.detail.value);
+				let value = event.detail.value;
+				uni.request({
+				    url: 'https://iot-api.heclouds.com/thingmodel/set-device-property', //仅为示例，并非真实接口地址。
+					method: 'POST',
+				    data: {
+						product_id: 'DQAy602I7Q',
+						device_name: 'd1',
+						params: { "led": value }
+				    },
+				    header: {
+				        'authorization': this.token //自定义请求头信息
+				    },
+				    success: () => {
+				        console.log('LED ' + (value ? 'ON' : 'OFF') + ' !');
+				    }
+				});
 			}
 
 		}
